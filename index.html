@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+ <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Women-Tops</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script data-require="angular.js@1.0.x" src="http://code.angularjs.org/1.0.7/angular.min.js" data-semver="1.0.7"></script>
+    <script src="js/jsonload.js" > </script>
+   <script>
+     String.prototype.trunc = String.prototype.trunc ||
+     function(n){
+     return this.length>n ? this.substr(0,n-1)+'...' : this.toString();
+     };
+   </script>
+  </head>
+
+  <body>
+      
+      <!--- Title Header Section -->
+      <header>
+        <div class="top-band">
+         <h2> Women's Top </h2>
+            
+        <!--- filter by size drop-down -->
+            <select id = "myList" name="filter" ng-model="search.size">
+            <option value="">Flter By Size	</option>
+            <option value="XS">XS</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>	
+            </select>
+         <!--- filter by size drop-down -->
+        </div>
+      </header>
+      <!--- Title Header Section -->
+      <section class="container-fluid">
+        <article class="container">
+              <!--- Product-item-container -->
+                <div class="row" ng-controller="jsonCtrl"> 
+                    <!--- Product Itenary -->  
+                    <figure class="col-span" ng-repeat="resource in products | filter : search :true">
+                        <div class="img-container"> 
+                            <img src="images/{{ resource.productImage }}" alt=""> 
+                         <!--- Sale-Exclusive-band --> 
+                            <aside class="highlight">
+                                <span class="sale-band" ng-show="resource.isSale"> Sale </span>
+                                 <span class="exclusive-band" ng-show="resource.isExclusive">Exclusive</span>
+                            </aside>
+                        <!--- Sale-Exclusive-band --> 
+                        </div>
+                       
+                      <figcaption>
+                            <div class="item-span">
+                                <span class="fig-name" > {{resource.productName.trunc(16)}}</span>
+                                <span class="fig-price">{{resource.price }}</span>
+                            </div>
+                        </figcaption>
+                        
+                        
+
+                    </figure>
+                    <!--- Product Itenary -->  
+                </div>
+               <!--- Product-item-container -->
+            </article>
+         </section> 
+       
+
+    </body>
+    </html>
